@@ -16,18 +16,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Getter @Setter
 @NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@Getter @Setter
+
 	@Id
 	private Integer id;
 	private Integer estado;
 	
-	@Getter @Setter
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
 	@MapsId
