@@ -13,7 +13,7 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
-	public Categoria buscar(Integer id) {
+	public Categoria find(Integer id) {
 		Categoria categoria = this.categoriaRepository.findOne(id);
 		
 		if(categoria == null) {
@@ -26,6 +26,11 @@ public class CategoriaService {
 
 	public Categoria insert(Categoria categoria) {
 		categoria.setId(null);
+		return this.categoriaRepository.save(categoria);
+	}
+
+	public Categoria update(Categoria categoria) {
+		this.find(categoria.getId());
 		return this.categoriaRepository.save(categoria);
 	}
 
