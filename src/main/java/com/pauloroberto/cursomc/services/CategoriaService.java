@@ -2,6 +2,7 @@ package com.pauloroberto.cursomc.services;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -47,7 +48,8 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria categoria) {
-		this.find(categoria.getId());
+		Categoria categoriaUpdate = this.find(categoria.getId());
+		BeanUtils.copyProperties(categoria, categoriaUpdate);
 		return this.categoriaRepository.save(categoria);
 	}
 
