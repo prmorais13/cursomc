@@ -79,7 +79,7 @@ public class ClienteService {
 		}
 	}
 	
-	// Método auxiliar que cria uma Cliente usando uma ClienteDTO
+	// Método auxiliar que cria um Cliente usando um ClienteDTO
 	public Cliente fromDto(ClienteDTO clienteDto) {
 		return new Cliente(clienteDto.getId(), clienteDto.getNome(), clienteDto.getEmail(), null, null);
 	}
