@@ -7,14 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter @Getter
-public class StandardError implements Serializable{
+public class FieldMessage implements Serializable{
 	private static final long serialVersionUID = 1L;
-
-	private Integer status;
-	private String msg;
-	private Long timeStamp;
 	
+	private String fieldName;
+	private String message;
+
 }
