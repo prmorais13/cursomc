@@ -1,5 +1,8 @@
 package com.pauloroberto.cursomc.dto;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.pauloroberto.cursomc.domains.Categoria;
 
 import lombok.Getter;
@@ -11,6 +14,9 @@ import lombok.Setter;
 public class CategoriaDTO {
 
 	private Integer id;
+	
+	@NotEmpty(message = "Nome é obrigatório!")
+	@Length(min = 5, max = 80, message = "O nome deve ter entre 5 e 80 caracteres!")
 	private String nome;
 	
 	public CategoriaDTO(Categoria categoria) {
