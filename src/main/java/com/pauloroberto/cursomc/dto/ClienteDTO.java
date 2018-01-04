@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.pauloroberto.cursomc.domains.Cliente;
+import com.pauloroberto.cursomc.services.validation.ClienteUpdate;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import lombok.Setter;
 
 @Getter @Setter
 @NoArgsConstructor
+@ClienteUpdate //Anotação customizada
 public class ClienteDTO {
 
 	private Integer id;
