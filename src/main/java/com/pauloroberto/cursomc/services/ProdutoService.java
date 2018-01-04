@@ -40,7 +40,7 @@ public class ProdutoService {
 		
 		List<Categoria> categorias = this.categoriaRepository.findAll(ids);
 		
-		return this.produtoRepository.search(nome, categorias, pageRequest);
+		return this.produtoRepository.findDistinctByNomeContainingAndCategoriasIn(nome, categorias, pageRequest);
 		
 	}
 

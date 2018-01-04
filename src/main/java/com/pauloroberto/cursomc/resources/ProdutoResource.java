@@ -41,7 +41,7 @@ public class ProdutoResource {
 		String nomeDecoded = URL.decodeParam(nome);
 		List<Integer> ids = URL.decodeIntList(categorias);
 		
-		Page<Produto> list =  this.produtoService.search(nomeDecoded, ids, page, size, orderBy, direction);
+		Page<Produto> list =  this.produtoService.search(nomeDecoded, ids, page, size, direction, orderBy);
 		
 		Page<ProdutoDTO> listDto = list.map(produto -> new ProdutoDTO(produto));
 		

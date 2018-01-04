@@ -3,9 +3,7 @@ package com.pauloroberto.cursomc.resources.utils;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
-//import java.util.Arrays;
 import java.util.List;
-//import java.util.stream.Collectors;
 
 public class URL {
 	
@@ -26,6 +24,6 @@ public class URL {
 		}
 		//for (int i = 0; i < vetor.length; i++) {}
 		return list;
-		//return Arrays.asList(vetor).stream().map(x -> Integer.parseInt(x)).collect(Collectors.toList());
+		// return Arrays.asList(s.split(",")).stream().map(x -> Integer.parseInt(x)).collect(Collectors.toList());
 	}
 }
