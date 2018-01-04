@@ -1,5 +1,7 @@
 package com.pauloroberto.cursomc.dto;
 
+import java.io.Serializable;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -13,7 +15,8 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @ClienteInsert //Anotação customizada
-public class ClienteNewDTO {
+public class ClienteNewDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	@NotEmpty(message = "Nome é obrigatório!")
 	@Length(min = 5, max = 120, message = "O nome deve ter entre 5 e 120 caracteres!")

@@ -1,5 +1,7 @@
 package com.pauloroberto.cursomc.dto;
 
+import java.io.Serializable;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -11,7 +13,8 @@ import lombok.Setter;
 
 @Getter @Setter
 @NoArgsConstructor
-public class CategoriaDTO {
+public class CategoriaDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private Integer id;
 	

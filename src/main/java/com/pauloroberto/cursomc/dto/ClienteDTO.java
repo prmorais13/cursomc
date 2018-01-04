@@ -1,5 +1,7 @@
 package com.pauloroberto.cursomc.dto;
 
+import java.io.Serializable;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -14,7 +16,8 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @ClienteUpdate //Anotação customizada
-public class ClienteDTO {
+public class ClienteDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private Integer id;
 	
