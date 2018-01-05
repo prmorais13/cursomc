@@ -7,6 +7,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pauloroberto.cursomc.domains.Cidade;
@@ -32,6 +33,9 @@ public class ClienteService {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	public List<Cliente> findAll() {
 		return this.clienteRepository.findAll();
@@ -81,16 +85,17 @@ public class ClienteService {
 	
 	// Método auxiliar que cria um Cliente usando um ClienteDTO
 	public Cliente fromDto(ClienteDTO clienteDto) {
-		return new Cliente(clienteDto.getId(), clienteDto.getNome(), clienteDto.getEmail(), null, null);
+		return new Cliente(clienteDto.getId(), clienteDto.getNome(), clienteDto.getEmail(), null, null, null);
 	}
 	
 	public Cliente fromNewDto(ClienteNewDTO clienteNewDto) {
-		Cliente cli = new Cliente(null, clienteNewDto.getNome(), clienteNewDto.getEmail(), clienteNewDto.getCpfOuCnpj(), TipoCliente.toEnum(clienteNewDto.getTipo()));
+		Cliente cli = new Cliente(null, clienteNewDto.getNome(), clienteNewDto.getEmail(), clienteNewDto.getCpfOuCnpj(),
+								  TipoCliente.toEnum(clienteNewDto.getTipo()), pe.encode(clienteNewDto.getSenha()));
 		
 		Cidade cid = this.cidadeRepository.findOne(clienteNewDto.getCidadeId());
 		
-		Endereco end = new Endereco(null, clienteNewDto.getLogradouro(), clienteNewDto.getNumero(), clienteNewDto.getComplemento(), clienteNewDto.getBairro(),
-				clienteNewDto.getCep(), cli, cid);
+		Endereco end = new Endereco(null, clienteNewDto.getLogradouro(), clienteNewDto.getNumero(), clienteNewDto.getComplemento(),
+									clienteNewDto.getBairro(), clienteNewDto.getCep(), cli, cid);
 		
 		cli.getEnderecos().add(end);
 		cli.getTelefones().add(clienteNewDto.getTelefone1());

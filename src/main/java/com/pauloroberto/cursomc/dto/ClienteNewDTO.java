@@ -28,22 +28,27 @@ public class ClienteNewDTO implements Serializable {
 	
 	@NotEmpty(message = "CPF ou CNPJ é obrigatório!")
 	private String cpfOuCnpj;
+	
 	private Integer tipo;
+	
+	@NotEmpty(message = "Senha é obrigatória!")
+	private String senha;
 	
 	@NotEmpty(message = "Logradouro é obrigatório!")
 	private String logradouro;
 	
 	@NotEmpty(message = "Número é obrigatório!")
 	private String numero;
+	
 	private String complemento;
 	
 	// @NotEmpty(message = "Nome é obrigatório!")
 	private String bairro;
 	
-	@NotEmpty(message = "Telefone é obrigatório!")
+	@NotEmpty(message = "CEP é obrigatório!")
 	private String cep;
 	
-	@NotEmpty(message = "Nome é obrigatório!")
+	@NotEmpty(message = "Telefone é obrigatório!")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
