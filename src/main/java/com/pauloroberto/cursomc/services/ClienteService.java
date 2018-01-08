@@ -13,12 +13,15 @@ import org.springframework.stereotype.Service;
 import com.pauloroberto.cursomc.domains.Cidade;
 import com.pauloroberto.cursomc.domains.Cliente;
 import com.pauloroberto.cursomc.domains.Endereco;
+import com.pauloroberto.cursomc.domains.enums.Perfil;
 import com.pauloroberto.cursomc.domains.enums.TipoCliente;
 import com.pauloroberto.cursomc.dto.ClienteDTO;
 import com.pauloroberto.cursomc.dto.ClienteNewDTO;
 import com.pauloroberto.cursomc.repositories.CidadeRepository;
 import com.pauloroberto.cursomc.repositories.ClienteRepository;
 import com.pauloroberto.cursomc.repositories.EnderecoRepository;
+import com.pauloroberto.cursomc.security.UserSS;
+import com.pauloroberto.cursomc.services.exceptions.AuthorizationException;
 import com.pauloroberto.cursomc.services.exceptions.DataIntegrityException;
 import com.pauloroberto.cursomc.services.exceptions.ObjectNotFoundException;
 
@@ -42,6 +45,12 @@ public class ClienteService {
 	}
 	
 	public Cliente find(Integer id) {
+		
+		UserSS usuarioLogado = UserService.userAuthenticated();
+		if (usuarioLogado == null || !usuarioLogado.hasRole(Perfil.ADMIN) && !id.equals(usuarioLogado.getId())) {
+			throw new AuthorizationException("Acesso Negado! O Usuário não é Administrador.");
+		}
+		
 		Cliente cliente = this.clienteRepository.findOne(id);
 		
 		if(cliente == null) {
