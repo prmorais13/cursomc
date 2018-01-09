@@ -37,13 +37,17 @@ public class ClienteResource {
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping
 	public ResponseEntity<List<ClienteDTO>> findAll() {
-		List<Cliente> list =  this.clienteService.findAll();
-		
-		List<ClienteDTO> listDto = list.stream()
-				.map(cliente -> new ClienteDTO(cliente))
-				.collect(Collectors.toList());
+		List<Cliente> list =  this.clienteService.findAll();	
+		List<ClienteDTO> listDto = list.stream().map(cliente -> new ClienteDTO(cliente)).collect(Collectors.toList());
 		
 		return ResponseEntity.ok().body(listDto);
+	}
+	
+	@GetMapping("/email")
+	public ResponseEntity<ClienteDTO> findByEmail(@RequestParam String email) {
+		Cliente cliente = this.clienteService.findByEmail(email);
+		return ResponseEntity.ok().body(new ClienteDTO(cliente));
+		
 	}
 
 	// Busca cliente por id
@@ -53,7 +57,7 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(cliente);
 	}
 	
-	// Busca clientes com paginação
+	// Busca todos os clientes com paginação
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping("/page")
 	public ResponseEntity<Page<ClienteDTO>> findPage(

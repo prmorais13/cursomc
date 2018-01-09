@@ -44,6 +44,24 @@ public class ClienteService {
 		return this.clienteRepository.findAll();
 	}
 	
+	public Cliente findByEmail(String email) {
+		
+		UserSS usuarioLogado = UserService.userAuthenticated();
+		if (usuarioLogado == null || !usuarioLogado.hasRole(Perfil.ADMIN) && !email.equals(usuarioLogado.getUsername())) {
+			throw new AuthorizationException("Acesso Negado!");
+		}
+		
+		Cliente cliente = this.clienteRepository.findOne(usuarioLogado.getId());
+		
+		if(cliente == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado! Id " + usuarioLogado.getId()
+					+ ", Tipo: " + Cliente.class.getName());
+		}
+		
+		return cliente;
+	}
+	
+	
 	public Cliente find(Integer id) {
 		
 		UserSS usuarioLogado = UserService.userAuthenticated();
