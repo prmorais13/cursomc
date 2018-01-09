@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 
+import com.pauloroberto.cursomc.domains.Cliente;
 import com.pauloroberto.cursomc.domains.Pedido;
 
 public abstract class AbstractEmailService implements EmailService{
@@ -32,5 +33,23 @@ public abstract class AbstractEmailService implements EmailService{
 		return sm;
 	}
 	
+	@Override
+	public void sendNewPasswordEmail(Cliente cliente, String newPassword) {
+		SimpleMailMessage sm = preparePasswordEmail(cliente, newPassword);
+		sendEmail(sm);
+	}
+
+	private SimpleMailMessage preparePasswordEmail(Cliente cliente, String newPassword) {
+
+		SimpleMailMessage sm = new SimpleMailMessage();
+		
+		sm.setTo(cliente.getEmail());
+		sm.setFrom(this.sender);
+		sm.setSubject("Solicitação de nova senha");
+		sm.setSentDate(new Date(System.currentTimeMillis()));
+		sm.setText("Nova senha: " + newPassword);
+		
+		return sm;
+	}
 	
 }
